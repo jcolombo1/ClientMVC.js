@@ -1,0 +1,85 @@
+ <!DOCTYPE html>
+ <html>
+    <head>
+		<title>TEST ClientMVC</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="etc/qunit.css">
+    </head>
+    <body>
+	
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+		
+		<br>
+		<h3>Datos testeados:</h3>
+		<div id="viewId"></div> 
+
+	<script src="etc/jquery-1.9.1.min.js"></script>
+	<script src="etc/qunit.js"> </script>
+	<script src="../../TExpreso.js/TExpreso.js"></script>
+	<script src="../../TExpreso.js/jquery.TExpreso.js"></script>
+	<script src="../docCookies.js" ></script>
+	<script src="../clientMVC.js"></script>
+
+	
+<script>
+
+	
+var MVC = new ClientMVC( { appPath:'', others: [ 'files/tpl_commons_tbs3','files/tpl_commons_%LANG%' ], sufixURI: 'files' } );  MVC.debugLevel = 2; 
+var loader = MVC.whenLoader();
+var firstest = MVC.whenRoute( 'firstest' );
+var sigue = MVC.whenRoute( 'sigue' );
+
+var fase=0;  // loop test
+
+firstest.started = function(ctx) {
+	fase++;
+	
+	test( "Test: ClientMVC - "+ctx.hash, function() {
+	
+		var o, $jq=$('#viewId');
+		ok($jq.text().indexOf("Template Hola!")>=0, ctx.hash+' f1');
+		ok($jq.text().indexOf("Click para continuar...")>=0, ctx.hash+' f2');
+		
+		if (fase==1) setTimeout(function(){$('#next1').click();}, 1000);
+	});
+};	
+sigue.started = function(ctx) {
+	test( "Test: ClientMVC - "+ctx.hash, function() {
+	
+		var o, $jq=$('#viewId');
+		ok($jq.text().indexOf("Siguiente Template Hola!")>=0, ctx.hash+' f1');
+		ok($jq.text().indexOf("Volver...")>=0, ctx.hash+' f2');
+		
+		setTimeout(function(){$('#volver').click();}, 1000);  
+		
+	});
+};	
+
+loader.started = function(ctx) {
+	ctx.model.global.saludo = "Hola!";
+};
+
+/****************************************************/
+	
+</script>
+
+<script id="firstest"  type="text/html" >
+	<p>Template {{global.saludo}}</p>
+	<button id='next1' onclick="window.location.assign('#sigue');"> Click para continuar... </button> 
+</script>
+
+<script id="sigue"  type="text/html" >
+	<p>Siguiente Template {{global.saludo}}</p>
+	<button id='volver' data-backbtn> Volver... </button> 
+</script>
+	
+<script id="_LOAD_"  type="text/html" >
+	<div><BR><BR><BR></div>
+    <div class="span4 progress progress-striped active">
+    	<div class="bar" style="width:100%;"></div>
+    </div>
+</script>
+
+    </body>
+ </html>
