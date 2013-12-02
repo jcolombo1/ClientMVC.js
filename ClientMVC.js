@@ -1,9 +1,9 @@
-﻿/**
+/**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * ClientMVC - Oct/2013
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * 	Copyright © 2013 Jorge Colombo (Buenos Aires, Argentina); 
- *  Licensed MIT 
+ * Copyright © 2013 Jorge Colombo (Buenos Aires, Argentina)
+ * Licensed MIT 
  *
  *	contact: jcolombo@ymail.com
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -981,5 +981,4 @@
   }, 100);
 
 })(window);
-
- 
+  

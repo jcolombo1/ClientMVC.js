@@ -2,7 +2,7 @@
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * docCookies - Oct/2013
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Copyright © 2013 Jorge Colombo (Buenos Aires, Argentina); 
+* Copyright Â© 2013 Jorge Colombo (Buenos Aires, Argentina); 
 * Licensed MIT / GNU Public License v3+
 *
 *	contact: jcolombo@ymail.com
@@ -23,7 +23,6 @@
 *  * docCookies.keys()
 *
 */
-
 var docCookies = {
   getItem: function (sKey) {
     return decodeURI(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURI(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;

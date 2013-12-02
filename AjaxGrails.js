@@ -1,44 +1,43 @@
-﻿/**
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * AjaxGrails - Oct/2013
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * 	Copyright © 2013 Jorge Colombo (Buenos Aires, Argentina); 
- *  Licensed MIT 
- *
- *	contact: jcolombo@ymail.com
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- *
- * Simple javascript that making Ajax requests to Grails application Server.
- *
- * DEPENDANCIES:
- *	 jQuery 1.5+ required
- *
- * FEATURES:
- *   . Spring Security Grails plugin compliance
- *   . Coexist multiple instances against different or same servers
- *   . Auto login-in on GET/POST/.. response status 401 Unauthorized
- *   . Self-Aware Cross Domain
- *   . All requests are asynchronous by default, event-driven responses
- *	 . Expects responses in JSON (by default)
- *	 . Saves login data (loginData prop.) and its status
- *	 . It use JQuery.Ajax (same options configurable although isn't necessary)
- *	 . Debugging features
- *	 . Login verbs: login, relogin, logout, check. 
- *   . Request verbs: get, post
- *	
- * USE EXAMPLES:
- *
- *		// create instance for mydomain.com w/ login's data 
- *		var ag1 = window.newAjaxGrails( "http://www.mydomain.com", $("#username").val(), $("#password").val() );
- *
- *		// then GET book list (auto-login will be triggered)
- *		ag1.get("/book", getResultHandler);
- *		...
- *
- *		ag1.post("/book/save", saveResultHandler, { data: {price:  $("#price").val() } } );
- *		
+/**
+* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* AjaxGrails - Oct/2013
+* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Copyright © 2013 Jorge Colombo (Buenos Aires, Argentina)
+* Licensed MIT 
+*
+* contact: jcolombo@ymail.com
+* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*
+* Simple javascript that making Ajax requests to Grails application Server.
+*
+* DEPENDANCIES:
+* jQuery 1.5+ required
+*
+* FEATURES:
+*   . Spring Security Grails plugin compliance
+*   . Coexist multiple instances against different or same servers
+*   . Auto login-in on GET/POST/.. response status 401 Unauthorized
+*   . Self-Aware Cross Domain
+*   . All requests are asynchronous by default, event-driven responses
+*   . Expects responses in JSON (by default)
+*   . Saves login data (loginData prop.) and its status
+*   . It use JQuery.Ajax (same options configurable although isn't necessary)
+*   . Debugging features
+*   . Login verbs: login, relogin, logout, check. 
+*   . Request verbs: get, post
+*
+* USE EXAMPLES:
+*
+*   create instance for mydomain.com w/ login's data 
+*   var ag1 = window.newAjaxGrails( "http://www.mydomain.com", $("#username").val(), $("#password").val() );
+*
+*   then GET book list (auto-login will be triggered)
+*   ag1.get("/book", getResultHandler);
+*   ...
+*
+*   ag1.post("/book/save", saveResultHandler, { data: {price:  $("#price").val() } } );
+*
 */
- 
 (function (window, $) {
 	'use strict';
 	

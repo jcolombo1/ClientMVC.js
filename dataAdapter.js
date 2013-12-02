@@ -2,7 +2,7 @@
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 *   dataAdapter function - Oct/2013
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*  Copyright © 2013 Jorge Colombo (Buenos Aires, Argentina); 
+*  Copyright Â© 2013 Jorge Colombo (Buenos Aires, Argentina); 
 *  Licensed MIT 
 *
 *  contacto: jcolombo@ymail.com
@@ -72,4 +72,3 @@
 	if (!window.dataAdapter) window.dataAdapter = adapt;
 	
 }(window));
-

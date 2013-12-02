@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+ï»¿ <!DOCTYPE html>
  <html>
     <head>
 		<title>TEST ClientMVC</title>
@@ -6,8 +6,6 @@
 		<link rel="stylesheet" href="etc/qunit.css">
 		<link rel="stylesheet" href="tbs3/css/bootstrap3.css">
 		<link rel="stylesheet" href="tbs3/css/bootstrap-theme.css">
-		
-
     </head>
     <body>
 	
@@ -16,8 +14,9 @@
 		
 		<br>
 		<h2>Caso 1:</h2>
-		<h4>En este test Ud. puede pulsar el botón "Continuar"...</h4>
+		<h4>En este test Ud. puede pulsar el botÃ³n "Continuar"...</h4>
 		<br>
+		<h5 id="te"></h5>
 		<div id="lapso"></div>
 		<br>
 		<div id="viewId" class="container"></div> 
@@ -25,12 +24,14 @@
 	<script src="etc/jquery-1.9.1.min.js"></script>
 	<script src="etc/qunit.js"> </script>
     <script src="tbs3/js/bootstrap3.min.js"></script>
+	<!--
 	<script src="../../TExpreso.js/TExpreso.js"></script>
 	<script src="../../TExpreso.js/jquery.TExpreso.js"></script>
 	<script src="../docCookies.js" ></script>
 	<script src="../clientMVC.js"></script>
 	<script src="../dataAdapter.js"></script>
-
+	-->
+	<script src="../ClientMVC.full.min.js"></script>
 	
 <script>
 
@@ -43,32 +44,32 @@ MVC.start( { appPath:'', others: [ 'files/tpl_tbs3', 'files/tpl_%LANG%' ], sufix
 
 var clk, fase=0;  // loop test
 
+var data = {   // simula json response
+	"username" : { class: 'has-success', prepends: [{icon:'user'}], label:'Usuario', placeholder: 'nombre de usuario', id:'j_username_id', type: "text", required: true, minlength: "4", value: 'Jac' }, 
+	"password" : { prepends: [{icon:'asterisk'}], label:'ContraseÃ±a', type:'password', id:'j_password_id', required: true },
+	"email" : {  class: 'has-error', prepends: [{icon:'envelope'}], label:'Email', placeholder: 'ej: suemail@dominio.com', id: 'email_id', type: 'email' , required: true } , //addon: { icon: 'icon-envelope' } },
+	"remember_me" : { icon:'star', label:'Recordarme', id: 'j_remember_me_id', text: 'recordarme en prÃ³ximos accesos', type:'checkbox', checked: true  },
+	"provs" : { id: 'provs_id', label: 'Provincias', type:'tablelist', _rows: [ {row:{value:'Buenos Aires', badge:'10'}}, {row:{active:true, head:'Capital Federal', value: '(tambiÃ©n denominada CABA)', badge:'5'}}, {row:{value:'Tierra del Fuego', badge:'2'}}, {row:{value:'AAAA'}}, {row:{value:'BBBB'}}, {row:{value:'CCCC'}} ] },
+};
+
 firstest.start = function(ctx) {
 	clk = new Date();
-	
-	var data = {   // simula json response
-		"username" : { class: 'has-success', prepends: [{icon:'user'}], label:'Usuario', placeholder: 'nombre de usuario', id:'j_username_id', type: "text", required: true, minlength: "4", value: 'Jac' }, 
-		"password" : { prepends: [{icon:'asterisk'}], label:'Contraseña', type:'password', id:'j_password_id', required: true },
-		"email" : {  class: 'has-error', prepends: [{icon:'envelope'}], label:'Email', placeholder: 'ej: suemail@dominio.com', id: 'email_id', type: 'email' , required: true } , //addon: { icon: 'icon-envelope' } },
-		"remember_me" : { icon:'star', label:'Recordarme', id: 'j_remember_me_id', text: 'recordarme en próximos accesos', type:'checkbox', checked: true  },
-		"provs" : { id: 'provs_id', label: 'Provincias', type:'tablelist', _rows: [ {row:{value:'Buenos Aires', badge:'10'}}, {row:{active:true, head:'Capital Federal', value: '(también denominada CABA)', badge:'5'}}, {row:{value:'Tierra del Fuego', badge:'2'}}, {row:{value:'AAAA'}}, {row:{value:'BBBB'}}, {row:{value:'CCCC'}} ] },
-	};
 	
 	ctx.setModelView(data);
 };
 
 firstest.started = function(ctx) {
 	fase++;
-	$('#lapso').append('<br>... fase '+fase+' tardó : '+ (new Date()-clk) +' ms.');
+	$('#lapso').append('<br>... fase '+fase+' tardÃ³ : '+ (new Date()-clk) +' ms.');
 	
 	test( "Test: ClientMVC - "+ctx.hash, function() {
 	
 		var text=$('#viewId').text();
 		ok(text.indexOf("Buenos Aires")>=0, ctx.hash+' 1 fase '+ fase);
 		ok(text.indexOf("Usuario")>=0, ctx.hash+' 2 fase '+ fase);
-		ok(text.indexOf("Contraseña")>=0, ctx.hash+' 3 fase '+ fase);
+		ok(text.indexOf("ContraseÃ±a")>=0, ctx.hash+' 3 fase '+ fase);
 		ok(text.indexOf("Email")>=0, ctx.hash+' 4 fase '+ fase);
-		ok(text.indexOf("recordarme en próximos accesos")>=0, ctx.hash+' 5 fase '+ fase);
+		ok(text.indexOf("recordarme en prÃ³ximos accesos")>=0, ctx.hash+' 5 fase '+ fase);
 		ok(text.indexOf("Hola template!")>=0, ctx.hash+' 6 fase '+ fase);
 		ok(text.indexOf("Click para Continuar...")>=0, ctx.hash+' 7 fase '+ fase);
 		
@@ -90,6 +91,7 @@ sigue.started = function(ctx) {
 
 loader.started = function(ctx) {
 	ctx.model.global.saludo = "Hola";
+	$('#te').append('utilizando: <b>'+$.TExpreso.ME+'</b>');
 };
 
 /****************************************************/
