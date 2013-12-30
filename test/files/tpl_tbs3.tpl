@@ -1,11 +1,45 @@
-﻿<script id="control-group-input" type="text/html">
+﻿<!-- 
+	TExpreso (motor de plantilas)
+	
+	Commons Templates para "Twitter Bootstrap 3"  ||   VERSION 2
+-->
+
+
+<!-- ***********************************************************************************************************
+	
+	TEMPLATE: control-group-input
+	
+	Se pueden indicar los siguientes parámetros para la renderización del input control, tanto en su parent 
+	scope para que afecte a todos los inputs, o sólo en el input control que se desee:  
+
+		unlabeled		set true si NO se desea input label (default undefined)
+		blockLabeled	set true si se desea que el label ocupe el row completo encima del input (default undefined)  
+		hideLabel		set true si se desea que el label NO se visibilice, pero ocupará su espacio (default undefined)
+
+		labelCols		set número de columnas que ocupará el label [1-12] (default 2)
+		controlCols		set número de columnas que ocupará el control [1-12] (default 10)
+
+	***********************************************************************************************************
+	
+-->
+
+<script id="control-group-input" type="text/html">
 	{{#_$isHidden}}
 		<input type="hidden" {{_$aName}} {{_$aId}} {{_$aValue}} ></input>
 	{{else}}
 		<div class="form-group {{class}}">
-			{{#label}}<label class="col-lg-2 control-label {{class}}" for="{{name}}" >{{|set $TEXT label "??"}}{{#trim}}{{> text-with-icon}}{{end}} :</label>
-			{{else}}<div class="col-lg-2"> </div>{{end}}
-			<div class="col-lg-10">
+			{{|set $unlabeled unlabeled .unlabeled}}
+			{{#if $unlabeled}}
+				<div class="col-sm-{{| controlCols .controlCols 12 }}">
+			{{else}}
+				{{|set $hideLabel hideLabel .hideLabel}}
+				{{|set $blockLabeled blockLabeled .blockLabeled}}
+				{{set $wl labelCols .labelCols 2 }}{{set $wc controlCols .controlCols 10 }}
+				{{#$blockLabeled}}{{set $wl 12}}{{set $wc 12}}{{end}}
+				{{#label}}<label class="col-sm-{{$wl}} {{class}}" for="{{name}}" >{{#if !$hideLabel}}{{|set $TEXT label "??"}}{{#trim}}{{> text-with-icon}}{{end}}{{end}}</label>
+				{{else}}<div class="col-sm-{{$wl}}"> </div>{{end}}
+				<div class="col-sm-{{$wc}}">
+			{{end}}
 				{{#_$isCheckboxOrRadio}}
 					{{#_$isCheckbox}}
 						<div class="checkbox">
@@ -47,7 +81,6 @@
 		</div>
 	{{end}}
 </script>
-
 <script id="table-list-a" type="text/html">
 	<div {{_$aId}} class="list-group" style="height: {{| height "200px"}}; overflow-y: scroll; border: 1px solid #dddddd; border-radius: 5px;">
 	{{#_rows}}
@@ -65,7 +98,6 @@
 	{{end}}
 	</div>
 </script>
-
 <script id="input-text" type="text/html">
 	{{set $p_cache}} {{set $a_cache}}
 	{{#if prepends}}
@@ -92,11 +124,9 @@
 		{{> input-text-input }}
 	{{end}}
 </script>
-
 <script id="input-text-input" type="text/html">
 	<input class="form-control {{class}}" {{_$aType}} {{_$aId}} {{_$aName}} {{_$aPlaceholder}} {{_$aValue}} {{_$aRequired}} {{_$aReadonly}} ></input>
 </script>
-
 <script id="input-addons" type="text/html">
 	{{set $close}}
 	{{#$addons_array}}
@@ -116,7 +146,6 @@
 	{{$close}}
 	{{set $isPullRight}}
 </script>
-
 <script id="text-with-icon" type="text/html" >
 	{{|set $text_icon $TEXT text label btn value}}{{set $TEXT}}
 	{{#icon}}
@@ -139,13 +168,11 @@
 		{{end}}
 	{{end}}
 </script>
-
 <script id="a-link" type="text/html">
 	<a href='{{| link "#"}}' {{#id}}id="{{id}}{{%row}}"{{end}} {{attrs}}>
 		{{> text-with-icon }} 
 	</a>
 </script>
-
 <script id="a-button" type="text/html">
 	{{#group}}
 		<button type="button" class="btn dropdown-toggle {{| class "btn-default"}}" data-toggle="dropdown">
@@ -164,20 +191,17 @@
 		</button>
 	{{end}}	
 </script>
-
 <script id="all-messages" type="text/html">
 	{{#message}}<div class="alert alert-warning">{{message}}</div>{{end}}
 	{{> success-messages }}
 	{{> error-messages }}
 </script>
-
 <script id="success-messages" type="text/html">
 	{{#_msgs}}
 		{{#success}}<div class="alert alert-success">{{success}}</div>{{end}}
 		{{#info}}<div class="alert alert-info">{{info}}</div>{{end}}
 	{{end}}
 </script>
-
 <script id="error-messages" type="text/html">
 	{{#_msgs}}
 		{{#warn}}<div class="alert">{{warn}}</div>{{end}}
@@ -185,9 +209,6 @@
 		{{#errors}}<div class="alert alert-error">{{error}}</div>{{end}}
 	{{end}}
 </script>
-
-<!-- TABLES -->
-
 <script id="table-column" type="text/html" >
 {{#link}}
 	<a href="{{link}}">{{> text-with-icon }}</a>
@@ -195,7 +216,6 @@
 	{{> text-with-icon }}
 {{end}}
 </script>
-
 <script id="table-column-head" type="text/html" >
 	{{|set $TEXT label text}}
 	{{#sort}}
@@ -205,7 +225,6 @@
 	{{end}}
 	{{set $TEXT}}
 </script>
-
 <script id="table-paginator" type="text/html" >
 	{{#_paginator}}
 	<ul class="pagination {{class}}">
@@ -227,7 +246,6 @@
 	</ul>
 	{{end}}
 </script>
-
 <script id="table-paginator-sizes" type="text/html" >
 	{{#_paginator}}
 	<div class="pagination btn-group {{| class "dropup"}}">

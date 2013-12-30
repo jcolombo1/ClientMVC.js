@@ -18,6 +18,10 @@
  *     AjaxGrails.js                       optional 
  *     dataAdapter.js                      optional 
  *
+ * REVS:
+ *     2013-12-13 v.2.3
+ *        Ahora la extensión por defecto es ".tpl" (configurable en options.tplExtension)
+ *
  * @TODO
  *        - Permitir mas de 1 AjaxGrails object a la vez (en onHelper)
 */
@@ -31,7 +35,7 @@
 			global 				 = {serverPath: '/'+String(window.location.pathname).split('/')[1] },
 			IAM                  = "ClientMVC",
 			IAM_ERROR            = IAM+" ERROR: ",
-			VERSION              = "2.0",
+			VERSION              = "2.3",
 			ROUTE_ERROR          = "'hash' ignored!, must be a string without strange characters",
 			LOADER_ROUTE		 = "_LOAD_",		
 			ATTR_DATA_PARTIAL    = "data-partial",
@@ -65,7 +69,7 @@
 				// -- heredados a c/route --
 				appPath:        "../",
 				sufixURI:		"",
-				tplExtension:   ".html",
+				tplExtension:   ".tpl",
 				loadErrorMsg:   "<b>... error de carga de página ...</b>",
 				startOnlyOnce:  false,
 				onFault: 		defaultFault,
@@ -75,6 +79,7 @@
 		$.extend( this, {
 			debugLevel: 0,				// PUBLIC 0=none; 1=logs; 2=logs Form-Data submit; 3=logs model data; 4=log helpers tbm
 			LOADER: LOADER_ROUTE,
+			ME: IAM+' v.'+VERSION
 		});
 		
 		function defaultFault(ctx, d) {
@@ -493,7 +498,7 @@
 			
 			if ( !(tag = content.match(/<[a-z]+[\s>]/i)) ) { console.warn(IAM, logx + " ***!! POSSIBLE MALFORMED HTML !!***" ); return content; };
 			content = _adapt(content, ATTR_DATA_PARTIAL, function(d){ return "{{> "+ d.attr +"}}"; } );
-			content = _adapt(content, ATTR_DATA_SECTIONKEY, function(d){ return "{{#"+ d.attr +"}}" + d.inner + "{{/"+ d.attr +"}}"; } );
+			content = _adapt(content, ATTR_DATA_SECTIONKEY, function(d){ return "{{#"+ d.attr +"}}" + d.inner + "{{end}}"; } ); //"{{/"+ d.attr +"}}"; } );
 			
 			return content; 
 		};
@@ -889,7 +894,7 @@
 			
 				LANGUAGE = (docCookies.getItem(COOKIE_LANG) || window.navigator.language || window.navigator.userLanguage || window.navigator.browserLanguage).substring(0,2);
 				if (options.AG) options.AG.setLanguage(LANGUAGE);
-				log('## Start ClientMVC v'+VERSION+' ## - LANGUAGE: "'+ LANGUAGE +'" ##');
+				log('## Start '+self.ME+' ## - LANGUAGE: "'+ LANGUAGE +'" ##');
 				
 				if (options.viewId && document.getElementById(options.viewId)==null) {
 					$(APPENDVIEW_SELECTOR+' :first').prepend('<div id="'+options.viewId+'">');
@@ -933,7 +938,7 @@
 			t = t ? t : '\t';
 			if (d==undefined) d=c; else if (c) log(c);
 			for (var n in d) {
-				if(typeof d[n]=='function') continue;
+				if(n==='..' || typeof d[n]=='function') continue;
 				if (n.substring(0,2)=='_$' && self.debugLevel<4) continue;
 				log(t + n +' = '+ d[n]);
 				if(typeof d[n]=='object') logd('',d[n],t+'\t');

@@ -43,9 +43,8 @@
 	
 	function AjaxGrails(serverURL, username, password, remember) {
 
-		version = '1.2';
-		 
 		var self = this, 
+			version = '1.2',
 			auth = false,
 			logId = 0,
 			lang = '',

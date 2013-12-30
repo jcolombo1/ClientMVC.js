@@ -30,10 +30,15 @@
 	<script src="../docCookies.js" ></script>
 	<script src="../clientMVC.js"></script>
 	<script src="../dataAdapter.js"></script>
+	<script src="../AjaxGrails.js"></script>
+	<script src="../paginatorGrails.js"></script>
 	-->
 	<script src="../ClientMVC.full.min.js"></script>
 	
 <script>
+
+var AG = window.newAjaxGrails('/crm');
+var PG = window.newPaginatorGrails();
 
 var loader = MVC.whenLoader();
 var firstest = MVC.whenRoute( 'firstest' );
@@ -61,9 +66,9 @@ firstest.start = function(ctx) {
 firstest.started = function(ctx) {
 	fase++;
 	$('#lapso').append('<br>... fase '+fase+' tardó : '+ (new Date()-clk) +' ms.');
-	
-	test( "Test: ClientMVC - "+ctx.hash, function() {
-	
+
+	test( "Test: "+MVC.ME+" - hash: "+ctx.hash, function() {
+
 		var text=$('#viewId').text();
 		ok(text.indexOf("Buenos Aires")>=0, ctx.hash+' 1 fase '+ fase);
 		ok(text.indexOf("Usuario")>=0, ctx.hash+' 2 fase '+ fase);
@@ -72,20 +77,20 @@ firstest.started = function(ctx) {
 		ok(text.indexOf("recordarme en próximos accesos")>=0, ctx.hash+' 5 fase '+ fase);
 		ok(text.indexOf("Hola template!")>=0, ctx.hash+' 6 fase '+ fase);
 		ok(text.indexOf("Click para Continuar...")>=0, ctx.hash+' 7 fase '+ fase);
-		
+
 		if (fase==1) setTimeout(function(){$('#next1').click();}, 1000);
 	});
 };
 
 sigue.started = function(ctx) {
-	test( "Test: ClientMVC - "+ctx.hash, function() {
-	
+	test( "Test: "+MVC.ME+" - hash: "+ctx.hash, function() {
+
 		var text=$('#viewId').text();
 		ok(text.indexOf("Siguiente paso - Hola template nuevamente!")>=0, ctx.hash+' 1 fase '+ fase);
 		ok(text.indexOf("Volver...")>=0, ctx.hash+' 2 fase '+ fase);
-		
-		setTimeout(function(){$('#volver').click();}, 1000);  
-		
+
+		setTimeout(function(){$('#volver').click();}, 1000);
+
 	});
 };	
 
