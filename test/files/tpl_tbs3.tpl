@@ -1,7 +1,7 @@
 ﻿<!-- 
 	TExpreso (motor de plantilas)
 	
-	Commons Templates para "Twitter Bootstrap 3"  ||   VERSION 2
+	Commons Templates para "Twitter Bootstrap 3"  ||   VERSION 2.1
 -->
 
 
@@ -204,9 +204,9 @@
 </script>
 <script id="error-messages" type="text/html">
 	{{#_msgs}}
-		{{#warn}}<div class="alert">{{warn}}</div>{{end}}
-		{{#error}}<div class="alert alert-error">{{error}}</div>{{end}}
-		{{#errors}}<div class="alert alert-error">{{error}}</div>{{end}}
+		{{#warn}}<div class="alert alert-warning">{{warn}}</div>{{end}}
+		{{#error}}<div class="alert alert-danger">{{error}}</div>{{end}}
+		{{#errors}}<div class="alert alert-danger">{{error}}</div>{{end}}
 	{{end}}
 </script>
 <script id="table-column" type="text/html" >
